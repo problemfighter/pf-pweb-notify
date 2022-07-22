@@ -1,5 +1,4 @@
-from flask_socketio import SocketIO, Namespace, send
-
+from flask_socketio import SocketIO, Namespace, send, emit
 from pf_pweb_notify.pfpn_default_namespace import DefaultNamespace
 
 _websocket = SocketIO()
@@ -17,10 +16,10 @@ class PWebNotify:
         _websocket.on_namespace(namespace)
 
     @staticmethod
-    def send_data(data, namespace: str = None, broadcast: bool = False):
+    def send_data(event, data, namespace: str = None, broadcast: bool = False):
         params = {}
         if namespace:
             params["namespace"] = namespace
         if broadcast:
             params["broadcast"] = broadcast
-        send(data, **params)
+        _websocket.emit(event, data, **params)
