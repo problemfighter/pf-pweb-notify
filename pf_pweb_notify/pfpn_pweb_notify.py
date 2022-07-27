@@ -18,6 +18,7 @@ class PWebNotify:
     @staticmethod
     def send_data(event, data, namespace: str = None, broadcast: bool = False):
         params = {}
+        return
         if namespace:
             params["namespace"] = namespace
         if broadcast:
